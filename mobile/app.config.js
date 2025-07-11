@@ -31,6 +31,7 @@ export default {
     plugins: ['expo-router'],
     extra: {
       apiUrl: process.env.EXPO_PUBLIC_API_URL || 'https://09ae-158-106-211-150.ngrok-free.app',
+      clerkPublishableKey: process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY,
     },
   },
 };
