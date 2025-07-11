@@ -1,15 +1,13 @@
 import React, { useEffect } from 'react'
 import { View, ActivityIndicator } from 'react-native'
 import { router } from 'expo-router'
-import { useAuth, useUser, useSignIn, useSignUp } from '@clerk/clerk-expo'
+import { useAuth } from '~/lib/auth-hooks'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { Text } from '~/components/ui/text'
 import { Button } from '~/components/ui/button'
-import { SignedIn, SignedOut } from '@clerk/clerk-expo'
 
 export default function IndexPage() {
-  const { isSignedIn, isLoaded } = useAuth()
-  const { user } = useUser()
+  const { isSignedIn, isLoaded, user } = useAuth()
 
   // Redirect to tabs if user is authenticated
   useEffect(() => {
@@ -33,7 +31,8 @@ export default function IndexPage() {
   return (
     <SafeAreaView className="flex-1 bg-background">
       <View className="flex-1 justify-center items-center px-6">
-        <SignedOut>
+        {/* Show when user is NOT signed in */}
+        {!isSignedIn && (
           <View className="items-center space-y-6">
             <View className="items-center space-y-2">
               <Text className="text-3xl font-bold">Welcome</Text>
@@ -52,15 +51,16 @@ export default function IndexPage() {
               </Button>
             </View>
           </View>
-        </SignedOut>
+        )}
 
-        <SignedIn>
+        {/* Show when user IS signed in */}
+        {isSignedIn && (
           <View className="items-center space-y-4">
-            <Text className="text-xl">Welcome, {user?.firstName}!</Text>
+            <Text className="text-xl">Welcome, {user?.usrName}!</Text>
             <ActivityIndicator size="large" />
             <Text className="text-muted-foreground">Redirecting to dashboard...</Text>
           </View>
-        </SignedIn>
+        )}
       </View>
     </SafeAreaView>
   )

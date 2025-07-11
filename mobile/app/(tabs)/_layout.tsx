@@ -7,7 +7,7 @@ import { formatCoordinates } from '~/lib/utils';
 import { Text } from '~/components/ui/text';
 import { CustomStatusBar } from '~/components/CustomStatusBar';
 import { Ionicons } from '@expo/vector-icons';
-import { useAuth } from '@clerk/clerk-expo';
+import { useAuth } from '~/lib/auth-hooks';
 import { useEffect } from 'react';
 
 export default function TabLayout() {
