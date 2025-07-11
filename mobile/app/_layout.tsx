@@ -11,9 +11,10 @@ import { useColorScheme } from '~/lib/useColorScheme';
 import { ClerkProvider } from '@clerk/clerk-expo';
 import { useEffect } from 'react';
 import { tokenCache } from '@clerk/clerk-expo/token-cache'
+import { Slot } from 'expo-router';
 import Constants from 'expo-constants'
 
-const clerkPublishableKey = Constants.expoConfig?.extra?.clerkPublishableKey
+const clerkPublishableKey = Constants.expoConfig?.extra?.clerkPublishableKey || "pk_test_Y29tbXVuYWwtZ2FyZmlzaC01MC5jbGVyay5hY2NvdW50cy5kZXYk"
 
 if (!clerkPublishableKey) {
   console.warn('Missing Clerk publishable key. Please add EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY to your .env file')
@@ -57,9 +58,10 @@ export default function RootLayout() {
 
   return (
     <ClerkProvider publishableKey={clerkPublishableKey} tokenCache={tokenCache}> 
+    {/* <ClerkProvider>  */}
     <SafeAreaProvider>
       <ThemeProvider value={isDarkColorScheme ? DARK_THEME : LIGHT_THEME}>
-        <StatusBar style={isDarkColorScheme ? 'light' : 'dark'} />
+
         <Stack>
           <Stack.Screen name="index" options={{ headerShown: false }} />
           <Stack.Screen name="(auth)" options={{ headerShown: false }} />
